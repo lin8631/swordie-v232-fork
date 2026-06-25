@@ -7,7 +7,7 @@ import os
 import json
 import socket
 
-SERVER_IP = "basedswordie.duckdns.org"
+SERVER_IP = "127.0.0.1"
 API_PORT = 3000
 
 # Config file to remember game path between launches
@@ -249,7 +249,7 @@ class LoginFrame(tk.Frame):
         try:
             import ctypes
             ctypes.windll.shell32.ShellExecuteW(
-                None, "runas", game_path, f"WebStart {token}",
+                None, "open", game_path, f"WebStart {token}",
                 os.path.dirname(game_path), 1
             )
             self.after(2000, self.parent.destroy)

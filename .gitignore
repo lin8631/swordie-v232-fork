@@ -5,7 +5,10 @@ WZ/
 wz/
 wzdat/
 info txts/
-dat/
+#  dat/
+
+JDK 21_WIN
+
 bin/classes/headerText.txt
 bin/classes/decodeforlocal.txt
 bin/

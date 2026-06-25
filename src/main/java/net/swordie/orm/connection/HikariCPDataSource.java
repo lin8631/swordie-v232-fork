@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class HikariCPDataSource {
 
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/swordie232";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/gms232";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 

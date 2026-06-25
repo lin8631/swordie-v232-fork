@@ -1,0 +1,23 @@
+## Swordie v232 服务端环境要求
+
+
+| **Java JDK** | **21** (Eclipse Temurin / Adoptium) | 项目仓库已自带 `JDK 21_WIN\jdk-21.0.11+10` |
+
+| **Maven** | **3.9+** | 已自带 `JDK 21_WIN\apache-maven-3.9.9` |
+
+| **MySQL Server** | **8.x** | 数据库，需先创建 `swordie232` schema |
+
+| **MapleStory 客户端** | **v232.2** | 用于读取 WZ 资源文件，需配置路径到 `ServerConstants.WZ_DIR` |
+
+| **端口** | 8484, 8585–8594, 3000 | 需端口转发或放行防火墙 |
+
+**数据库初始化**：按顺序执行 `sql/` 下的 InitTables、Init_Admin_accounts 等 .sql 文件。
+
+**构建命令**：mvn clean install -DskipTests
+
+**启动命令**：mvn exec:java -Dexec.mainClass="net.swordie.ms.Server"（或运行start-server.bat）
+
+**Java 依赖**（Maven 自动管理）：Netty 4.2、HikariCP、MySQL Connector 8.0、
+Log4j 2.25、Jython、RESTEasy、Nashorn、bcrypt 等，详见 `pom.xml`。
+
+**额外组件**：Python 3.11+（启动器用）、DuckDNS 脚本（动态 DNS，可选）。
