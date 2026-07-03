@@ -1,5 +1,7 @@
 package net.swordie.ms.constants;
 
+import net.swordie.ms.ServerConfig;
+
 import java.util.List;
 
 public class MobExpConstants {
@@ -8,12 +10,12 @@ public class MobExpConstants {
         int rate
     ) {}
 
-    public static final int MOB_EXP_BASE_RATE = 10;
+    public static int MOB_EXP_BASE_RATE = ServerConfig.getInt("mob.exp.base.rate", 10);
+    public static int LEVEL_10_EXP_RATE = ServerConfig.getInt("mob.exp.rate.per.level.10", MOB_EXP_BASE_RATE);
 
-    public static final List<MobExpRate> MOB_EXP_RATE_PER_MIN_LEVEL = List.of(
-        // make sure to sort it starting from lowest minLevel to highest
+    public static List<MobExpRate> MOB_EXP_RATE_PER_MIN_LEVEL = List.of(
         new MobExpRate(1, 1),
-        new MobExpRate(10, MOB_EXP_BASE_RATE)
+        new MobExpRate(10, LEVEL_10_EXP_RATE)
     );
 
     /**

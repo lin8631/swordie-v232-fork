@@ -2,6 +2,7 @@ package net.swordie.ms.constants;
 
 import net.swordie.ms.client.partyquests.towerofoz.OzPillType;
 import net.swordie.ms.util.Position;
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.util.Rect;
 import net.swordie.ms.util.Util;
 
@@ -194,11 +195,11 @@ public class OzConstants {
     public static final int MASTER_OF_OZ = 1142694;
     public static final int NO_PLACE_LIKE_HOME = 1142695;
 
-    public static final int F5_MEDAL_DROP_RATE = 90;
-    public static final int F15_MEDAL_DROP_RATE = 70;
-    public static final int F25_MEDAL_DROP_RATE = 60;
-    public static final int F35_MEDAL_DROP_RATE = 50;
-    public static final int F45_MEDAL_DROP_RATE = 50;
+    public static final int F5_MEDAL_DROP_RATE = ServerConfig.getInt("oz.medal.drop.rate.f5", 90);
+    public static final int F15_MEDAL_DROP_RATE = ServerConfig.getInt("oz.medal.drop.rate.f15", 70);
+    public static final int F25_MEDAL_DROP_RATE = ServerConfig.getInt("oz.medal.drop.rate.f25", 60);
+    public static final int F35_MEDAL_DROP_RATE = ServerConfig.getInt("oz.medal.drop.rate.f35", 50);
+    public static final int F45_MEDAL_DROP_RATE = ServerConfig.getInt("oz.medal.drop.rate.f45", 50);
 
 
 
@@ -251,7 +252,7 @@ public class OzConstants {
     public static final int KING_SLIME = 9309127;
     public static final long KING_SLIME_HP = 1_000_000_000L;
     public static final int KING_SLIME_SPAWN_PROP = 2;
-    public static final int KING_SLIME_MULTIPLIER = 30;
+    public static final int KING_SLIME_MULTIPLIER = ServerConfig.getInt("oz.king.slime.hp.multiplier", 30);
 
     // F7
     // Jump Quest

@@ -4,6 +4,7 @@ import net.swordie.ms.client.character.Char;
 import net.swordie.ms.handlers.executors.EventManager;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.util.Util;
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.world.field.Field;
 
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class ShadowButterflyEvent extends EliteChampionFieldEvent {
     public static final int SHADOW_BUTTERFLY_2 = 8220107;
     public static final int SHADOW_BUTTERFLY_3 = 8220108;
 
-    public static final int SHADOW_BUTTERFLY_HP_MULTI = 4;
+    public static final int SHADOW_BUTTERFLY_HP_MULTI = ServerConfig.getInt("elite.champion.shadow.butterfly.hp.multi", 4);
     public static final int SHADOW_BUTTERFLY_COUNT = 15;
 
     private int butterflyQueueSize = SHADOW_BUTTERFLY_COUNT;

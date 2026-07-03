@@ -4,6 +4,7 @@ import net.swordie.ms.client.character.Char;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.world.field.Field;
 
 import java.util.Arrays;
@@ -19,8 +20,8 @@ public class DarkWolfEvent extends EliteChampionFieldEvent {
     public static final int DARK_SPHERE = 8220122;
     public static final int DARK_WOLF = 8220123;
 
-    public static final int DARK_SPHERE_HP_MULTI = 6;
-    public static final int DARK_WOLF_HP_MULTI = 30;
+    public static final int DARK_SPHERE_HP_MULTI = ServerConfig.getInt("elite.champion.dark.sphere.hp.multi", 6);
+    public static final int DARK_WOLF_HP_MULTI = ServerConfig.getInt("elite.champion.dark.wolf.hp.multi", 30);
 
     public static final int DARK_SPHERE_COUNT = 5;
 

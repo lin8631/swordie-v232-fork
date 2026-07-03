@@ -1,0 +1,16 @@
+sudo systemctl start mysql
+
+D:\MapleStory\NapMysqlTool\
+8.x
+
+
+首次启动前需编译：mvn clean package -DskipTests
+
+start-server.bat   每次自动编译？
+
+D:\MapleStory\Client\GMS\Maplestory V232.2\v232 Launcher
+
+启动         ./start.sh
+停止         kill $(cat server.pid)
+查看日志   tail -f server.log
+重启         kill $(cat server.pid) && ./start.sh

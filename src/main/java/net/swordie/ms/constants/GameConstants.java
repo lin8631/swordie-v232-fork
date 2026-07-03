@@ -11,6 +11,8 @@ import net.swordie.ms.util.Rect;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.util.container.Triple;
 
+import net.swordie.ms.ServerConfig;
+
 import java.util.*;
 
 /**
@@ -19,10 +21,10 @@ import java.util.*;
 public class GameConstants {
     public static final int CHANNELS_PER_WORLD = 10;
     public static final int BUFFED_CHANNELS = CHANNELS_PER_WORLD;
-    public static final int COMBO_ORB_EXP_RATE = 10; // Note: MOB_EXP_RATE does not affect combo orbs
-    public static final int MOB_NX_RATE = 1;
-    public static final int MOB_DROP_RATE = 10;
-    public static final int MOB_MESO_RATE = 10;
+    public static int COMBO_ORB_EXP_RATE = ServerConfig.getInt("combo.orb.exp.rate", 10);
+    public static int MOB_NX_RATE = ServerConfig.getInt("mob.nx.rate", 1);
+    public static int MOB_DROP_RATE = ServerConfig.getInt("mob.drop.rate", 10);
+    public static int MOB_MESO_RATE = ServerConfig.getInt("mob.meso.rate", 10);
     public static final long MAX_MONEY = 99_999_999_999L;
     public static final short DAMAGE_SKIN_MAX_SIZE = 100;
     public static final int MAX_PET_AMOUNT = 3;

@@ -1,14 +1,12 @@
 ## Launcher使用说明
 
 ### 配置文件
-
 打开launcher/launcher.py，修改前两行：
-SERVER_IP = "你的服务器IP或域名"  # 改为你的公网IP或DuckDNS域名
-API_PORT = 3000                   # 服务端Web API端口(默认3000)
+SERVER_IP = "服务器IP或域名"  # 改为你的公网IP或DuckDNS域名
+API_PORT = 3000                     # 服务端Web API端口(默认3000)
 
 ### 使用方式
 **方法一（推荐）：** 双击launcher\Launch Swordie.bat
-
 会自动安装依赖（pip install requests），然后启动 GUI。
 
 **方法二：** 命令行手动执行
@@ -21,5 +19,4 @@ python launcher\launcher.py
    - 会自动检测服务器状态（绿色指示灯 = 在线）
    - 未注册可点 "Create Account" 注册
 3. **登录成功** — 自动拉起 MapleStory 客户端并传入认证 token
-
-> 服务端必须已启动（端口 3000 Web API 在线），Launcher 才能连接。
+服务端必须已启动（端口3000 Web API 在线），Launcher 才能连接。

@@ -4,6 +4,7 @@ import net.swordie.ms.client.character.Char;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.world.field.Field;
 
 import java.util.Arrays;
@@ -32,9 +33,9 @@ public class BlackCrescendoSlimeEvent extends EliteChampionFieldEvent {
     public static final int BLACK_CRESCENDO_SLIME_2 = 8220102;
     public static final int BLACK_CRESCENDO_SLIME_3 = 8220104;
 
-    public static final int SLIME_1_HP_MULTI = 5;
-    public static final int SLIME_2_HP_MULTI = 16;
-    public static final int SLIME_3_HP_MULTI = 32;
+    public static final int SLIME_1_HP_MULTI = ServerConfig.getInt("elite.champion.slime.1.hp.multi", 5);
+    public static final int SLIME_2_HP_MULTI = ServerConfig.getInt("elite.champion.slime.2.hp.multi", 16);
+    public static final int SLIME_3_HP_MULTI = ServerConfig.getInt("elite.champion.slime.3.hp.multi", 32);
 
     public BlackCrescendoSlimeEvent(Field field, int timeS) {
         super(field, timeS);

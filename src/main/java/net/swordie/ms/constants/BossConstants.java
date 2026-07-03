@@ -1,5 +1,6 @@
 package net.swordie.ms.constants;
 
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.util.Position;
 
 /**
@@ -277,7 +278,7 @@ public class BossConstants {
 
     // Chaos
     public static final int HORNTAIL_HARD = 8810122;
-    public static final long HORNTAIL_CHAOS_MULTIPLIER = 4;
+    public static final long HORNTAIL_CHAOS_MULTIPLIER = ServerConfig.getInt("boss.ht.chaos.hp.multiplier", 4);
     public static final long HORNTAIL_CHAOS_HP = 10_000_000_000L * HORNTAIL_CHAOS_MULTIPLIER; // 40bil
     public static final int CHAOS_HORNTAIL_TIME = 150 * 60; // 2 hrs, 30 min timer
 
@@ -455,7 +456,7 @@ public class BossConstants {
     public static final int[] GOLLUX_RIGHT_HAND_SKILLS = new int[]{3, 5, 6, 8, 10};
     public static final int[] GOLLUX_LEFT_HAND_SKILLS = new int[]{2, 4, 7, 9, 11};
     public static final int GOLLUX_BREATH_ATTACK = 1;
-    public static final int GOLLUX_DROP_STONE_CHANCE = 25;
+    public static final int GOLLUX_DROP_STONE_CHANCE = ServerConfig.getInt("boss.gollux.drop.stone.chance", 25);
 
     //  Princess No --------------------------------------------------------------------------------------------------------
     public static final int PRINCESS_NO = 9450022;

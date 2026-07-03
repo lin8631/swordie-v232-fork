@@ -1,5 +1,6 @@
 package net.swordie.ms.world.field.instance.instancehelper.pq;
 
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.connection.packet.UserPacket;
@@ -64,7 +65,7 @@ public class MoonBunnyInstanceHelper extends PartyQuestInstanceHelper {
 
     private static final int PRIMROSE_SEED = 4001453;
     private static final int SEED_PLANTED_REQ = 6;
-    private static final int PRIMROSE_SEED_DROP_RATE = 80;
+    private static final int PRIMROSE_SEED_DROP_RATE = ServerConfig.getInt("moonbunny.primrose.seed.drop.rate", 80);
 
     private int seedsPlanted;
 

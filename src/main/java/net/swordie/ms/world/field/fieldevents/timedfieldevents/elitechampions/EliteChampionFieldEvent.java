@@ -1,5 +1,6 @@
 package net.swordie.ms.world.field.fieldevents.timedfieldevents.elitechampions;
 
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.constants.GameConstants;
 import net.swordie.ms.life.drop.Drop;
@@ -21,10 +22,10 @@ import java.util.Map;
  */
 public abstract class EliteChampionFieldEvent extends TimedFieldEvent {
 
-    private static final int MINIMUM_DMG_RATIO_FOR_REWARD = 3;
+    private static final int MINIMUM_DMG_RATIO_FOR_REWARD = ServerConfig.getInt("elite.champion.min.dmg.ratio.for.reward", 3);
 
     private static final int ELITE_CHAMPION_ORB_COUNT = 4;
-    private static final int ELITE_CHAMPION_ORB_EXP_MULTIPLIER = 15;
+    private static final int ELITE_CHAMPION_ORB_EXP_MULTIPLIER = ServerConfig.getInt("elite.champion.orb.exp.multi", 15);
 
     private long minExpPerMobOnField = 0L;
     private long minHpPerMobOnField = 0L;

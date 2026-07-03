@@ -4,6 +4,7 @@ import net.swordie.ms.client.character.Char;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.world.field.Field;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ public class IllusionFlowerEvent extends EliteChampionFieldEvent {
     public static final int KILLER_BEE = 8220111;
 
     public static final int KILLER_BEES_COUNT = 10;
-    public static final int KILLER_BEES_HP_MULTI = 6;
+    public static final int KILLER_BEES_HP_MULTI = ServerConfig.getInt("elite.champion.killer.bees.hp.multi", 6);
 
     public IllusionFlowerEvent(Field field, int timeS) {
         super(field, timeS);

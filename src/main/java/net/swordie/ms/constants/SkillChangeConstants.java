@@ -1,5 +1,6 @@
 package net.swordie.ms.constants;
 
+import net.swordie.ms.ServerConfig;
 import java.util.Map;
 
 /**
@@ -386,7 +387,7 @@ public class SkillChangeConstants {
      * Parashock Guard - Changed to be +20% guard chance & Attack/MAttack for everyone affected by the Aura
      *
      */
-    public static final int ELEMENTAL_CHARGE_DURATION_MULTI = 5;
+    public static final int ELEMENTAL_CHARGE_DURATION_MULTI = ServerConfig.getInt("skill.paladin.elemental.charge.duration.multi", 5);
     // Parashock Guard - change is done by the way we handle Auras.
 
     public static String getPaladinSkillChangeString() {
@@ -550,7 +551,7 @@ public class SkillChangeConstants {
      *
      */
     public static final boolean MELTTDOWN_ENERGY_ORB_CHARGES = true;
-    public static final int DRAGON_STRIKE_DEBUFF_DURATION_MULTIPLIER = 3;
+    public static final int DRAGON_STRIKE_DEBUFF_DURATION_MULTIPLIER = ServerConfig.getInt("skill.buccaneer.dragon.strike.debuff.duration.multi", 3);
     public static final boolean SPIRAL_ASSAULT_NO_CD = true;
 
     public static String getBuccaneerSkillChangeString() {
@@ -640,7 +641,7 @@ public class SkillChangeConstants {
      * Orbital Flame Range - Increased the added range
      *
      */
-    public static final double ORBITAL_FLAME_RANGE_MULTIPLIER = 1.5D; // Multiplier on the Added Range Hyper On/Off
+    public static final double ORBITAL_FLAME_RANGE_MULTIPLIER = ServerConfig.getDouble("skill.blaze.wizard.orbital.flame.range.multi", 1.5D);
 
     public static String getBlazeWizardSkillChangeString() {
         return "" +
@@ -660,8 +661,8 @@ public class SkillChangeConstants {
     public static final int TRIFFLING_WIND_PROC_BONUS_MAX = 15; // 15% increase to triffling wind creation
     public static final int TRIFFLING_WIND_DELAY_REDUCTION_PER_SEC = 8; // 8ms delay decrease per second
     public static final int TRIFFLING_WIND_DELAY_REDUCTION_MAX = 170; // 170ms delay reduction
-    public static final double TRIFFLING_WIND_SIMPACT_MULTIPLIER_PER_SECOND = 5D; // 1 + (1/5D) increase per second
-    public static final double TRIFFLING_WIND_SIMPACT_MULTIPLIER_MAX = 6D; // 6x max increase
+    public static final double TRIFFLING_WIND_SIMPACT_MULTIPLIER_PER_SECOND = ServerConfig.getDouble("skill.wind.archer.triffling.wind.simpact.multi.per.sec", 5D);
+    public static final double TRIFFLING_WIND_SIMPACT_MULTIPLIER_MAX = ServerConfig.getDouble("skill.wind.archer.triffling.wind.simpact.multi.max", 6D);
     public static final int TRIFFLING_WIND_KEYDOWN_GIFT_MS = 2000; // 1500ms
 
 
@@ -922,7 +923,7 @@ public class SkillChangeConstants {
      *
      */
     public static final boolean GOD_OF_BLADES_INCREASES_BLADE_ENERGY = true;
-    public static final int GOD_OF_BLADES_BLADE_ENERGY_MULTIPLIER = 2;
+    public static final int GOD_OF_BLADES_BLADE_ENERGY_MULTIPLIER = ServerConfig.getInt("skill.hayato.god.of.blades.blade.energy.multi", 2);
     public static final int GOD_OF_BLADES_BOOSTER = -2;
 
     public static String getHayatoSkillChangeString() {
@@ -1054,7 +1055,7 @@ public class SkillChangeConstants {
      * Storm Break - damage has been decreased from 430% to 215%, number of hits has been increased from 4 to 8, whirlwinds’ damage has been decreased from 430% to 215%, number of hits has been increased from 2 to 4
      * Advanced Storm Break - damage has been decreased from 670% to 335%, number of hits has been increased from 5 to 10, whirlwinds’ damage has been decreased from 670% to 335%, number of hits has been increased from 2 to 4
      */
-    public static final int ADVANCED_TILES_DURATION_MULTIPLIER = 2; // Advanced Wind Breaker and Earth Break Duration Multiplier
+    public static final int ADVANCED_TILES_DURATION_MULTIPLIER = ServerConfig.getInt("skill.zero.advanced.tiles.duration.multi", 2);
     public static final boolean DOUBLE_TIME_COUNTER_REQUIRES_MOB_HITS = false; // Double time stack needs mobs to be hit to increase
     public static final int DIVINE_SPEED_BOOSTER_VALUE = -3; // Overwritten IndieBooster Value
 
@@ -1102,7 +1103,7 @@ public class SkillChangeConstants {
     public static final int MIND_BREAK_COOLDOWN = 10; // 10sec
 
     public static final boolean MIND_BREAK_FD_BUFF = true;
-    public static final int MIND_BREAK_FD_MULTIPLIER = 3;
+    public static final int MIND_BREAK_FD_MULTIPLIER = ServerConfig.getInt("skill.kinesis.mind.break.fd.multi", 3);
 
     public static final boolean MIND_BREAK_MOST_BENEFICIAL_BUFF = true; // Grabs best buff from Mind Break. current one or the new one
 

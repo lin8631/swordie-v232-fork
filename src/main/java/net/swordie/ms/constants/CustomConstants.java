@@ -1,13 +1,14 @@
 package net.swordie.ms.constants;
 
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.client.jobs.resistance.demon.DemonSlayer;
 import net.swordie.ms.handlers.header.OutHeader;
 
 public class CustomConstants {
     //Buffed mobs
-    public static final int BUFFED_MOB_HP_MULTIPLIER = 1000;
+    public static final int BUFFED_MOB_HP_MULTIPLIER = ServerConfig.getInt("custom.buffed.mob.hp.multiplier", 1000);
     public static final int BUFFED_MOB_SCALE = 120; //Default scale is 100
-    public static final int BUFFED_MOB_DAMAGE_MULTIPLIER = 10;
+    public static final int BUFFED_MOB_DAMAGE_MULTIPLIER = ServerConfig.getInt("custom.buffed.mob.damage.multiplier", 10);
 
     public static final boolean AUTO_AGGRO = false;
     public static final int PET_VAC = 4030003;
