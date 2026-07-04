@@ -33,6 +33,8 @@ scripts/item/__init__.py
 wz199/
 properties/
 
+gms-ui/node_modules/
+gms-ui/dist/
 hotswap-agent\.jar
 venv/
 

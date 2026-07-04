@@ -1,0 +1,89 @@
+import axios from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Message } from '@arco-design/web-vue';
+import { useUserStore } from '@/store';
+import { getToken } from '@/utils/auth';
+
+export interface HttpResponse<T = unknown> {
+  status: string;
+  message: string;
+  code: number;
+  data: T;
+}
+
+if (import.meta.env.VITE_API_BASE_URL) {
+  axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+}
+
+axios.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    const token = getToken();
+    if (token) {
+      if (!config.headers) {
+        config.headers = {};
+      }
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  (response: AxiosResponse<HttpResponse | Blob>) => {
+    if (response.config.responseType === 'blob') {
+      const res = response.data as Blob;
+      if (response.status !== 200) {
+        Message.error({
+          content: response.statusText || 'Error',
+          duration: 5 * 1000,
+        });
+        return Promise.reject(new Error(response.statusText || 'Error'));
+      }
+      const url = window.URL.createObjectURL(new Blob([res]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute(
+        'download',
+        response.headers['content-disposition']
+          .split('filename=')[1]
+          .replace(/"/g, '')
+      );
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      return null;
+    }
+    const res = response.data as HttpResponse;
+    if (res.code !== 20000) {
+      Message.error({
+        content: res.message || 'Error',
+        duration: 5 * 1000,
+      });
+      return Promise.reject(new Error(res.message || 'Error'));
+    }
+    return res;
+  },
+  (error) => {
+    let errorMessage;
+    if (error.message === 'Network Error') {
+      errorMessage = '无法连接到服务器';
+    } else {
+      errorMessage = error.message || 'Request Error';
+    }
+    Message.error({
+      content: errorMessage,
+      duration: 5 * 1000,
+    });
+    if (error.response?.status === 401) {
+      const userStore = useUserStore();
+      userStore.logoutCallBack();
+      window.location.href = '/';
+      return Promise.reject(new Error('登录已过期'));
+    }
+    return Promise.reject(error);
+  }
+);

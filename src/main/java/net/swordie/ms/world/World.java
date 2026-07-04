@@ -487,13 +487,12 @@ public class World {
     }
 
     public void generateMobs() {
-        try {
-            for (var channel : getChannels()) {
+        for (var channel : getChannels()) {
+            try {
                 channel.generateMobs();
+            } catch (Exception e) {
+                log.error("Error generating mobs for channel " + channel.getChannelId(), e);
             }
-        } catch (Exception e) {
-            // makes the timer not stop if something unexpected happens
-            log.error(e.getMessage());
         }
     }
 

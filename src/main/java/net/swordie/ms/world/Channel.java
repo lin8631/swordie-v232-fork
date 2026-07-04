@@ -256,14 +256,26 @@ public class Channel {
     }
 
     public void generateMobs() {
-        new HashSet<>(getFields().values()).forEach(f -> f.generateMobs(false));
+        new HashSet<>(getFields().values()).forEach(f -> {
+            try {
+                f.generateMobs(false);
+            } catch (Exception e) {
+                log.error("Error generating mobs for field " + f.getId(), e);
+            }
+        });
         var uniqueInstances = getChars().values().stream()
                 .map(Char::getInstance)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
         var fields = new HashSet<Field>();
         uniqueInstances.forEach(i -> fields.addAll(i.getFields().values()));
-        fields.forEach(f -> f.generateMobs(false));
+        fields.forEach(f -> {
+            try {
+                f.generateMobs(false);
+            } catch (Exception e) {
+                log.error("Error generating mobs for instance field " + f.getId(), e);
+            }
+        });
     }
 
     public void generateHarvests() {

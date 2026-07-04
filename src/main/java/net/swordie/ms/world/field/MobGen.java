@@ -70,10 +70,13 @@ public class MobGen extends Life {
 
     public MobGen deepCopy() {
         MobGen mobGen = new MobGen(getTemplateId());
-        if (getMob() != null) {
-            mobGen.setPosition(getPosition());
-            mobGen.setMob(getMob());
-        }
+        mobGen.setPosition(getPosition());
+        mobGen.setMob(getMob());
+        mobGen.setFh(getFh());
+        mobGen.setCy(getCy());
+        mobGen.setRx0(getRx0());
+        mobGen.setRx1(getRx1());
+        mobGen.setHomePosition(getHomePosition());
         return mobGen;
     }
 

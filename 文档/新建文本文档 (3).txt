@@ -1,0 +1,32 @@
+## 进度报告
+
+### ✅ 已完成
+**后端 (Java) — 17个新文件**
+- `GmsApiResult.java` — 统一响应包装 `{ code: 20000, data, message }`
+- 16个路由文件在 `routes/gms/` 下，覆盖全部前端 API 端点
+- 所有路由会自动被 WebApi.java 扫描注册，无需手动配置
+
+- 新数据库表（gms_configs, global_drops, gachapon_pools/rewards, gms_commands, autoban_config）会在首次访问时自动创建
+
+**前端 (Vue 3) — 已全部创建**
+- 完整项目结构、配置、路由、视图、Store、API 层、布局组件
+
+### ❌ 未验证
+- **`npm install && npm run build`** — 当前环境没有 Node.js，无法验证前端构建
+- **`mvn compile`** — Maven 可用但需要确认 JDK 环境
+
+### 下一步你需要做
+```bash
+# 1. 安装前端依赖并构建
+cd gms-ui
+npm install
+npm run build
+
+# 2. 编译 Java 后端
+cd ..
+mvn compile
+
+# 3. 启动服务，访问 http://localhost:3000
+```
+
+前后端启动后，登录流程：前端 POST `/api/auth/v1/login` → 后端验证密码 → 返回 token → 前端存储 token → 后续请求带 `Authorization: Bearer <token>` 头。

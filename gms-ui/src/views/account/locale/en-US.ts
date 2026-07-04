@@ -1,0 +1,17 @@
+export default {
+  'account.list.title': 'Account List',
+  'account.list.id': 'ID',
+  'account.list.name': 'Name',
+  'account.list.loggedin': 'Status',
+  'account.list.lastlogin': 'Last Login',
+  'account.list.createdat': 'Created At',
+  'account.list.banned': 'Banned',
+  'account.list.webadmin': 'Admin',
+  'account.list.email': 'Email',
+  'account.list.grade': 'Grade',
+  'account.list.operate': 'Operate',
+  'account.list.ban': 'Ban',
+  'account.list.unban': 'Unban',
+  'account.list.resetLogin': 'Reset Login',
+  'account.list.delete': 'Delete',
+};

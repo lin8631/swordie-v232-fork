@@ -7,7 +7,18 @@ import net.swordie.ms.client.User;
 
 public abstract class BaseResource {
 
+    private static final String BEARER_PREFIX = "Bearer ";
+
+    private static String extractToken(String raw) {
+        if (raw == null) return null;
+        if (raw.startsWith(BEARER_PREFIX)) {
+            return raw.substring(BEARER_PREFIX.length());
+        }
+        return raw;
+    }
+
     public User authorize(String token, int userId) {
+        token = extractToken(token);
         if (token == null) {
             throw new BadRequestException("Your session has expired. Please relog in order to continue.");
         }
@@ -21,6 +32,7 @@ public abstract class BaseResource {
     }
 
     public User authorize(String token) {
+        token = extractToken(token);
         if (token == null) {
             throw new BadRequestException("Your session has expired. Please relog in order to continue.");
         }

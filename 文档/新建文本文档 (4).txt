@@ -1,0 +1,14 @@
+已创建 4个脚本：
+
+run-backend.bat 启动后端服务器 (端口 3000) 
+run-frontend.bat 启动前端开发服务器 (端口 5173) 
+run.bat 一键同时启动前后端 
+build-all.bat 一键构建后端 JAR + 前端 dist 
+
+第一步:  双击 start-server.bat      ← 启动 Java 后端 (端口 3000)
+第二步:  双击 run.bat               ← 启动前端 dev server (端口 5173)
+
+
+run.bat现在只负责前端，后端用项目自带的start-server.bat启动。
+
+build-all.bat保持不变，用于一键构建前后端。

@@ -1,0 +1,17 @@
+export default {
+  'account.list.title': '账号列表',
+  'account.list.id': 'ID',
+  'account.list.name': '账号',
+  'account.list.loggedin': '状态',
+  'account.list.lastlogin': '最后登录',
+  'account.list.createdat': '创建时间',
+  'account.list.banned': '封禁',
+  'account.list.webadmin': '管理员',
+  'account.list.email': '邮箱',
+  'account.list.grade': '等级',
+  'account.list.operate': '操作',
+  'account.list.ban': '封禁',
+  'account.list.unban': '解封',
+  'account.list.resetLogin': '重置登录',
+  'account.list.delete': '删除',
+};

@@ -1498,6 +1498,11 @@ public class Field {
                     && getChannel() > GameConstants.CHANNELS_PER_WORLD - GameConstants.BUFFED_CHANNELS;
             int currentMobs = getMobs().size();
             List<MobGen> shuffledMobs = new ArrayList<>(getMobGens());
+            if (init) {
+                log.info("Field " + getId() + " generateMobs init: mobGens=" + shuffledMobs.size()
+                        + ", currentMobs=" + currentMobs
+                        + ", fixedMobCapacity=" + getInfo().getFixedMobCapacity());
+            }
             // shuffle so the mobs spawn on random positions, instead of a fixed order
             Collections.shuffle(shuffledMobs);
             for (MobGen mg : shuffledMobs) {

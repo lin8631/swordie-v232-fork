@@ -1,0 +1,152 @@
+# gms-ui 进度与注意事项总结
+
+## 整体架构
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Browser (用户访问)                                         │
+├─────────────────────────────────────────────────────────────┤
+│  gms-ui (Vue 3 + Vite SPA)          端口 5173 (dev)        │
+│  ├─ Arco Design Vue 2.x (UI 组件库)                        │
+│  ├─ Pinia (状态管理)                                        │
+│  ├─ Vue Router (路由 + 菜单系统)                            │
+│  └─ Axios → /api/* → proxy                                 │
+├─────────────────────────────────────────────────────────────┤
+│  Vite Dev Proxy (vite.config.dev.ts)                        │
+│  /api/* → http://localhost:3000                             │
+├─────────────────────────────────────────────────────────────┤
+│  Java Backend (RESTEasy)             端口 3000              │
+│  ├─ com.sun.net.httpserver.HttpServer                       │
+│  ├─ /api/gms/* → 16 个 Route 类 (全后端 API 已就绪)        │
+│  ├─ Token auth (24h 过期)                                   │
+│  └─ CORS: 全开放 (*)                                        │
+├─────────────────────────────────────────────────────────────┤
+│  Nginx (生产环境, 仓库内无配置)                              │
+│  反代 / → gms-ui/dist, 反代 /api → localhost:3000           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## ✅ 已完成的工作
+
+### 1. 后端 API — **完整可用**
+16个 Route 类全部实现，与前端 API 调用一一对应：
+- **Auth** — login/logout/refreshToken
+- **Account** — CRUD + ban/unban/resetLoggedIn
+- **Server** — stats/status/start/stop/restart/shutdown
+- **Config** — CRUD + YML import/export
+- **Character** — online list
+- **Common** — 多类型信息搜索
+- **CashShop** — 分类/商品/上架/下架
+- **Drop** — 怪物掉落/全局掉落 CRUD
+- **Inventory** — 背包浏览/编辑
+- **NpcShop** — CRUD
+- **Give** — 给玩家物品/资源
+- **Gachapon** — 奖池/奖励 CRUD
+- **Command** — 命令配置 + reload
+- **File** — 文件树浏览/编辑
+- **Autoban** — 配置查询/更新
+- **Message** — (stub/占位)
+- **CORS** — 全开放，支持 OPTIONS 预检
+
+### 2. 前端框架 — **完整就绪**
+- Vue 3 + Composition API + TypeScript
+- Pinia 三个 store (app/user/tab-bar)
+- Vue Router 自动注册路由 (`import.meta.glob`)
+- 多语言 (en-US/zh-CN, 已补充所有缺失 key)
+- 菜单系统 (权限过滤 + 排序 + 递归渲染)
+- 登录态 + 路由守卫 (auth → fetch user → route permission)
+
+### 3. 已修复的 Bug
+| 问题 | 根因 | 修复 |
+|------|------|------|
+| 菜单标题全显示undefined| Vue 默认不含 runtime compiler，compile()挂掉 | vite.config.base.ts加 alias 到 vue.esm-bundler.js |
+
+| 侧边栏菜单不渲染 | icon 编译失败 → 整棵子菜单树炸裂 | 同上 |
+
+| title 用compile()编译纯文本 | 多此一举，compile('Dashboard')纯属浪费 | 改为t()直接返回字符串 |
+
+| Statistic 显示 `"-"` / `"232.2"` | Prop 要求 Number，API 返回 String | 加 `Number()` 转换 + 0兜底 |
+
+| `a-radio-group` toRefs 警告 | 缺少 `v-model`，Arco 内部对 undefined prop 调 `toRefs` | 加上 `v-model="condition.type"` |
+
+| 15个 i18n key 缺失 | 未配置翻译 | 全部补入 `en-US.ts` / `zh-CN.ts` |
+
+---
+
+## 🔧 开发环境启动方式
+
+```bash
+# 终端 1: 启动 Java 后端 (端口 3000)
+cd D:\GitHub\swordie-v232-fork
+# 编译运行 Server main class
+
+# 终端 2: 启动前端 dev server (端口 5173)
+cd gms-ui
+npm install   # 仅首次
+npm run dev   # → http://localhost:5173
+```
+
+Vite 自动将 `/api/*` 代理到 `localhost:3000`，直接打开浏览器访问即可。
+
+---
+
+## ⚠️ 注意事项
+
+### 1. 生产部署：需要 Nginx
+Java 后端**没有静态文件托管能力**（不像 Spring Boot 可以 `resources/static/`）。生产环境必须用 Nginx 或同类反向代理：
+```nginx
+# 示例（仓库内暂无此配置）
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    # 前端 SPA
+    root /path/to/gms-ui/dist;
+    index index.html;
+    location / { try_files $uri $uri/ /index.html; }
+
+    # API 反代到 Java 后端
+    location /api/ {
+        proxy_pass http://127.0.0.1:3000;
+    }
+}
+```
+
+### 2. Message API 路径问题
+`MessageRoute.java` 的 `@Path` 是硬编码的 `"/api/message"`，而不是基于 `BASE_API_PATH`，导致它的完整路径是 `/api/api/message`，与前端请求不匹配。这部分当前是 stub，暂时没有影响，但以后启用时需要修复。
+
+### 3. 前端开发依赖 `npm install`
+`gms-ui/node_modules/` 未包含在仓库中。
+
+首次运行需要执行 `npm install`（可能因为网络原因需要换国内镜像或耐心等待）。
+
+### 4. 尚未实现的功能
+- **game/drop 的导入/导出** — 页面有按钮但 store action 未实现
+- **game/file 的写操作** — `writeFile` 有 API 调用，但缺少操作界面
+- **game/config 的 CRUD 弹窗** — `addClick`/`uptClick` 方法为空
+- **game/npcShop 的编辑/删除/新增** — 页面已渲染表格但交互未完成
+- **game/gachapon 的所有 CRUD** — 页面框架已有但 store action 未调用
+- **game/command 的更新** — API 支持但页面按钮未绑定
+- **game/autoban 的所有操作** — 同上
+- **account/list 的搜索条件完善** — 搜索字段在 API 中定义了但页面上缺少部分筛选器
+
+- **全页面的英文翻译** — 部分页面（game/config, game/cashshop）页面内文字硬编码为中文（如"描述"、"操作"、"搜索"、"道具ID"、"出售状态"等），未走 i18n 翻译
+
+### 5. 菜单来自客户端 vs 服务端
+`useMenuTree.ts` 支持两种模式：
+- `appStore.menuFromServer = true` → 菜单来自 `GET /account/v1/menu`
+- `false`（默认）→ 菜单来自客户端 `router/app-menus`
+
+后端 `AccountRoute.java` 已实现 `/api/account/v1/menu` 端点，如需服务端控制菜单权限，将 `settings.json` 中的 `menuFromServer` 设为 `true` 即可。
+
+### 6. 数据库相关
+所有 API 使用自定义 ORM 层 (`net.swordie.orm`)，基于 JDBC 手写 SQL，没有 JPA/Hibernate。
+
+数据库表结构需与 API 查询一致（如 `auth_tokens` 表存 token, `accounts` 表存账号信息等）。
+
+### 7. 开发环境限制
+`npm run dev` 在 Windows 上测试正常。
+
+Vite 的 HMR (Hot Module Replacement) 在大部分场景下有效。如果遇热更新卡顿，刷新页面即可。
